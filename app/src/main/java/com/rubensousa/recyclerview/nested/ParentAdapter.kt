@@ -105,10 +105,12 @@ class ParentAdapter(private val scrollStateHolder: ScrollStateHolder) :
          * To fix that, we snap again without smooth scrolling.
          */
         fun onDetachedFromWindow() {
-            snapHelper.findSnapView(layoutManager)?.let {
-                val snapDistance = snapHelper.calculateDistanceToFinalSnap(layoutManager, it)
-                if (snapDistance!![0] != 0 || snapDistance[1] != 0) {
-                    recyclerView.scrollBy(snapDistance[0], snapDistance[1])
+            if (recyclerView.scrollState != RecyclerView.SCROLL_STATE_IDLE) {
+                snapHelper.findSnapView(layoutManager)?.let {
+                    val snapDistance = snapHelper.calculateDistanceToFinalSnap(layoutManager, it)
+                    if (snapDistance!![0] != 0 || snapDistance[1] != 0) {
+                        recyclerView.scrollBy(snapDistance[0], snapDistance[1])
+                    }
                 }
             }
         }
