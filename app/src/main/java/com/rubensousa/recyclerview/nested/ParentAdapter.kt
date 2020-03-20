@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
@@ -55,6 +56,7 @@ class ParentAdapter(private val scrollStateHolder: ScrollStateHolder) :
     override fun onViewRecycled(holder: VH) {
         super.onViewRecycled(holder)
         holder.onRecycled()
+        Toast.makeText(holder.itemView.context, "Recycled: ${holder.adapterPosition}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onViewDetachedFromWindow(holder: VH) {
@@ -82,7 +84,7 @@ class ParentAdapter(private val scrollStateHolder: ScrollStateHolder) :
             recyclerView.layoutManager = layoutManager
             recyclerView.setHasFixedSize(true)
             recyclerView.itemAnimator?.changeDuration = 0
-            snapHelper.attachToRecyclerView(recyclerView)
+//            snapHelper.attachToRecyclerView(recyclerView)
             scrollStateHolder.setupRecyclerView(recyclerView, this)
         }
 
@@ -90,12 +92,12 @@ class ParentAdapter(private val scrollStateHolder: ScrollStateHolder) :
             currentItem = item
             titleTextView.text = item.title
             adapter.setItems(item.texts)
-            scrollStateHolder.restoreScrollState(recyclerView, this)
+//            scrollStateHolder.restoreScrollState(recyclerView, this)
         }
 
         fun onRecycled() {
-            scrollStateHolder.saveScrollState(recyclerView, this)
-            currentItem = null
+//            scrollStateHolder.saveScrollState(recyclerView, this)
+//            currentItem = null
         }
 
         /**
